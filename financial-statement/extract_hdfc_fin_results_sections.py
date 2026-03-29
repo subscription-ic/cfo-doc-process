@@ -8,21 +8,21 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from pydantic import ValidationError
 
-from op.models import (
+from models import (
     get_output_columns,
     get_response_model,
     model_to_rows,
     validate_response,
 )
-from op.prompts import get_prompt
+from prompts import get_prompt
 
 # Usage:
 # 1) pip install openai pandas python-dotenv
 # 2) Ensure OPENAI_API_KEY is set in your .env
-# 3) python -m op.extract_hdfc_fin_results_sections --version v1
+# 3) From repo root: python .\financial-statement\extract_hdfc_fin_results_sections.py --version v3
 
 INPUT_DIR = r"C:\Users\shiv\Desktop\ic\cfo\pdf"
-OUTPUT_DIR = "op"
+OUTPUT_DIR = "op" #folder will be created automatically if it doesn't exist
 OUTPUT_SUFFIX = "_fin_summary_prompt2.xlsx"
 MODEL_NAME = "gpt-5.4"
 
@@ -115,7 +115,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--version",
-        default="v1",
+        default="v3",
         help="Prompt/model version to use.",
     )
     return parser.parse_args()
